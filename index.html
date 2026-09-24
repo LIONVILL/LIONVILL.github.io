@@ -583,16 +583,15 @@
     position:relative;z-index:5;
   }
 
-  /* левая панель */
   .inv-left{
     padding:24px 22px;border-right:1px solid rgba(94,227,111,.15);
     display:flex;flex-direction:column;min-height:0;
   }
   .inv-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
   }
   .inv-slot{
-    aspect-ratio:1/1;border:2px solid var(--line);border-radius:4px;
+    aspect-ratio:16/10;border:2px solid var(--line);border-radius:4px;
     background:
       linear-gradient(160deg,rgba(20,23,33,.9),rgba(11,13,19,.95));
     position:relative;cursor:none;overflow:hidden;
@@ -621,24 +620,30 @@
     font-size:38px;opacity:.75;transition:.25s;
   }
   .inv-slot:hover .fallback{transform:scale(1.1)}
-  /* блик по слоту */
   .inv-slot::after{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);
     transform:translateX(-120%);transition:.5s;
   }
   .inv-slot:hover::after{transform:translateX(120%)}
-  /* номер слота */
   .inv-slot .n{
     position:absolute;top:4px;left:6px;font-size:10px;color:var(--dim);
     letter-spacing:1px;z-index:2;
   }
   .inv-slot.active .n{color:var(--green)}
-  /* бейдж "новинка" */
   .inv-slot .badge{
     position:absolute;top:4px;right:4px;z-index:2;
     font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:2px;
     background:var(--gold);color:#1a1200;font-weight:bold;
+  }
+  .inv-slot .count{
+    position:absolute;bottom:4px;right:6px;z-index:2;
+    font-size:10px;letter-spacing:1px;
+    color:var(--cyan);
+    background:rgba(3,4,10,.75);
+    border:1px solid rgba(77,216,255,.4);
+    padding:1px 6px;border-radius:2px;
+    font-family:'Share Tech Mono',monospace;
   }
 
   .inv-hotbar-deco{
@@ -659,14 +664,12 @@
     box-shadow:0 0 8px var(--cyan);animation:blink 1.4s steps(1) infinite;
   }
 
-  /* правая панель */
   .inv-right{padding:24px;min-height:0;overflow-y:auto}
   .inv-right::-webkit-scrollbar{width:8px}
   .inv-right::-webkit-scrollbar-track{background:transparent}
   .inv-right::-webkit-scrollbar-thumb{background:rgba(94,227,111,.3);border-radius:4px}
 
   .inv-preview{display:flex;flex-direction:column;gap:18px}
-
   .inv-preview-img{
     position:relative;width:100%;aspect-ratio:16/10;
     border:2px solid var(--line);border-radius:4px;overflow:hidden;
@@ -690,9 +693,7 @@
     z-index:2;
   }
 
-  /* ---- слайдер картинок внутри превью ---- */
-
-
+  /* ---- слайдер картинок ---- */
   .inv-slider{
     position:absolute;inset:0;z-index:3;
     display:flex;align-items:center;justify-content:space-between;
@@ -747,7 +748,6 @@
     font-family:'Share Tech Mono',monospace;
   }
   .inv-counter b{color:var(--cyan)}
-
 
   .inv-placeholder{
     display:flex;flex-direction:column;align-items:center;gap:12px;
@@ -959,7 +959,7 @@
         <div class="inv-trigger-text">
           <div class="inv-title">ОТКРЫТЬ ИНВЕНТАРЬ</div>
           <div class="inv-sub">
-            <span class="inv-count" id="invCount">6</span> предметов · примеры работ и проектов
+            <span class="inv-count" id="invCount">4</span> проекта · примеры работ
           </div>
           <div class="inv-hint">
             <span class="kbd">E</span> или клик — открыть сундук
@@ -969,8 +969,8 @@
       </button>
 
       <div class="inv-side">
-        <div class="inv-stat"><span class="n" id="statWorks">6</span><span class="l">РАБОТ</span></div>
-        <div class="inv-stat"><span class="n">4</span><span class="l">ГОДА</span></div>
+        <div class="inv-stat"><span class="n" id="statWorks">4</span><span class="l">ПРОЕКТА</span></div>
+        <div class="inv-stat"><span class="n" id="statShots">7</span><span class="l">КАДРОВ</span></div>
         <div class="inv-stat"><span class="n">∞</span><span class="l">ИДЕЙ</span></div>
       </div>
 
@@ -1014,14 +1014,13 @@
 
         <div class="inv-right">
           <div class="inv-preview" id="invPreview">
-                        <div class="inv-preview-img" id="invPreviewImg">
+            <div class="inv-preview-img" id="invPreviewImg">
               <div class="inv-placeholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
                   <rect x="3" y="3" width="18" height="18" rx="2"/>
                   <circle cx="8.5" cy="8.5" r="1.5"/>
                   <path d="M21 15l-5-5L5 21"/>
                 </svg>
-                <span>выбери слот слева</span>
               </div>
             </div>
             <div class="inv-preview-meta">
@@ -1628,13 +1627,9 @@
   document.head.appendChild(style);
 
   /* ============================================================
-     ПОРТФОЛИО-ИНВЕНТАРЬ
-     ============================================================
-     ВАЖНО: замени img: '...' на пути к своим картинкам.
-     Пример: img: 'images/server.jpg'
-     Если картинки нет — оставь img: null и покажется emoji.
+     ПОРТФОЛИО
      ============================================================ */
-   var PORTFOLIO = [
+  var PORTFOLIO = [
     {
       icon: '🔌',
       img: [
@@ -1655,8 +1650,8 @@
         'images/server-3.jpg'
       ],
       category: 'SERVER BUILD',
-      title: 'Сборка сервера ',
-      desc: 'Сборка гриферского сервера',
+      title: 'Сборка сервера под ключ',
+      desc: 'Полный цикл: ядро, 40+ плагинов, конфиги прав, экономика, прокси, анти-ддос. Оптимизация под стабильную работу при высоком онлайне.',
       tags: ['Paper', 'Velocity', 'LuckPerms', 'Vault'],
       link: '#'
     },
@@ -1695,51 +1690,117 @@
   var invTrigger = document.getElementById('invTrigger');
   var invClose = document.getElementById('invClose');
   var activeIndex = 0;
+  var activeSlide = 0;
 
-  // построить сетку слотов
+  function getImgs(item){
+    return Array.isArray(item.img) ? item.img : (item.img ? [item.img] : []);
+  }
+
   function buildInvGrid(){
     invGrid.innerHTML = '';
+    var totalShots = 0;
+
     PORTFOLIO.forEach(function(item, i){
+      var imgs = getImgs(item);
+      totalShots += imgs.length;
+
       var slot = document.createElement('div');
       slot.className = 'inv-slot' + (i === 0 ? ' active' : '');
       slot.dataset.index = i;
 
       var inner = '';
-      if(item.img){
-        inner = '<img src="' + item.img + '" alt="' + item.title + '">';
+      if(imgs.length > 0){
+        inner += '<img src="' + imgs[0] + '" alt="' + item.title + '" onerror="this.style.display=\'none\';this.parentNode.insertAdjacentHTML(\'afterbegin\',\'<div class=&quot;fallback&quot;>' + item.icon + '</div>\')">';
       } else {
-        inner = '<div class="fallback">' + item.icon + '</div>';
+        inner += '<div class="fallback">' + item.icon + '</div>';
       }
-      inner += '<span class="n">' + String(i+1).padStart(2,'0') + '</span>';
-      if(i === 0) inner += '<span class="badge">NEW</span>';
-      slot.innerHTML = inner;
 
+      inner += '<span class="n">' + String(i+1).padStart(2,'0') + '</span>';
+
+      if(imgs.length > 1){
+        inner += '<span class="count">' + imgs.length + ' шт</span>';
+      }
+
+      slot.innerHTML = inner;
       slot.addEventListener('click', function(){ selectSlot(i); });
       invGrid.appendChild(slot);
     });
+
     document.getElementById('invCount').textContent = PORTFOLIO.length;
     document.getElementById('statWorks').textContent = PORTFOLIO.length;
+    var stShots = document.getElementById('statShots');
+    if(stShots) stShots.textContent = totalShots;
+  }
+
+  function renderPreview(item, slideIndex){
+    activeSlide = slideIndex;
+    var imgs = getImgs(item);
+    var total = imgs.length;
+
+    if(total === 0){
+      invPreviewImg.innerHTML =
+        '<div class="inv-placeholder" style="font-size:64px;color:var(--green);opacity:.55">' +
+        item.icon + '</div>';
+      return;
+    }
+
+    if(slideIndex >= total) slideIndex = 0;
+    if(slideIndex < 0) slideIndex = total - 1;
+    activeSlide = slideIndex;
+
+    var html = '<img src="' + imgs[slideIndex] + '" alt="' + item.title + '" onerror="this.style.opacity=\'0.15\'">';
+
+    if(total > 1){
+      html += '<div class="inv-slider">' +
+                '<button class="inv-nav" data-nav="-1" type="button" aria-label="Назад">‹</button>' +
+                '<button class="inv-nav" data-nav="1" type="button" aria-label="Вперёд">›</button>' +
+              '</div>' +
+              '<div class="inv-dots">';
+      for(var i = 0; i < total; i++){
+        html += '<span class="inv-dot' + (i === slideIndex ? ' active' : '') + '" data-slide="' + i + '"></span>';
+      }
+      html += '</div>' +
+              '<div class="inv-counter"><b>' + (slideIndex+1) + '</b> / ' + total + '</div>';
+    }
+
+    invPreviewImg.innerHTML = html;
+
+    invPreviewImg.querySelectorAll('[data-nav]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var dir = parseInt(btn.dataset.nav, 10);
+        renderPreview(item, activeSlide + dir);
+      });
+    });
+    invPreviewImg.querySelectorAll('[data-slide]').forEach(function(dot){
+      dot.addEventListener('click', function(e){
+        e.stopPropagation();
+        renderPreview(item, parseInt(dot.dataset.slide, 10));
+      });
+    });
+
+    var startX = 0;
+    invPreviewImg.addEventListener('touchstart', function(e){
+      startX = e.touches[0].clientX;
+    }, { passive:true });
+    invPreviewImg.addEventListener('touchend', function(e){
+      var dx = e.changedTouches[0].clientX - startX;
+      if(Math.abs(dx) < 40) return;
+      renderPreview(item, activeSlide + (dx < 0 ? 1 : -1));
+    });
   }
 
   function selectSlot(i){
     activeIndex = i;
+    activeSlide = 0;
     var item = PORTFOLIO[i];
 
-    // активный слот
     invGrid.querySelectorAll('.inv-slot').forEach(function(s, idx){
       s.classList.toggle('active', idx === i);
     });
 
-    // превью-картинка
-    if(item.img){
-      invPreviewImg.innerHTML = '<img src="' + item.img + '" alt="' + item.title + '">';
-    } else {
-      invPreviewImg.innerHTML =
-        '<div class="inv-placeholder" style="font-size:64px;color:var(--green);opacity:.55">' +
-        item.icon + '</div>';
-    }
+    renderPreview(item, 0);
 
-    // тексты
     invPreviewCat.textContent = item.category;
     invPreviewTitle.textContent = item.title;
     invPreviewDesc.textContent = item.desc;
@@ -1775,7 +1836,6 @@
   });
 
   document.addEventListener('keydown', function(e){
-    // открытие по E (когда инпут консоли не активен и модалка закрыта)
     if((e.key === 'e' || e.key === 'E' || e.key === 'у' || e.key === 'У') &&
        !invModal.classList.contains('on') &&
        !/input|textarea/i.test(document.activeElement.tagName) &&
@@ -1784,7 +1844,6 @@
       openInv();
       return;
     }
-    // закрытие по E/ESC внутри модалки
     if(invModal.classList.contains('on')){
       if(e.key === 'Escape' || e.key === 'e' || e.key === 'E' || e.key === 'у' || e.key === 'У'){
         e.preventDefault();
@@ -1792,11 +1851,23 @@
       }
       if(e.key === 'ArrowRight'){
         e.preventDefault();
-        selectSlot((activeIndex + 1) % PORTFOLIO.length);
+        var cur = PORTFOLIO[activeIndex];
+        var imgs = getImgs(cur);
+        if(imgs.length > 1 && activeSlide < imgs.length - 1){
+          renderPreview(cur, activeSlide + 1);
+        } else {
+          selectSlot((activeIndex + 1) % PORTFOLIO.length);
+        }
       }
       if(e.key === 'ArrowLeft'){
         e.preventDefault();
-        selectSlot((activeIndex - 1 + PORTFOLIO.length) % PORTFOLIO.length);
+        var cur2 = PORTFOLIO[activeIndex];
+        var imgs2 = getImgs(cur2);
+        if(imgs2.length > 1 && activeSlide > 0){
+          renderPreview(cur2, activeSlide - 1);
+        } else {
+          selectSlot((activeIndex - 1 + PORTFOLIO.length) % PORTFOLIO.length);
+        }
       }
     }
   });
