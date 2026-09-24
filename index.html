@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>// CHUNK LOADER — MC TECH DEV</title>
+<title>// VILLONI — MC TECH DEV</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -130,7 +130,7 @@
   .sec-note::before{content:"> ";color:var(--green)}
 
   .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center;
-    padding:120px 0 40px;min-height:88vh;}
+    padding:120px 0 20px;min-height:78vh;}
   .type-line{color:var(--green);font-size:clamp(.95rem,2vw,1.2rem);margin-bottom:14px;
     letter-spacing:1px;min-height:1.5em;}
   .type-line .cur{display:inline-block;width:10px;height:1.1em;background:var(--green);
@@ -173,6 +173,137 @@
     display:flex;gap:3px;font-size:11px;}
   .hp{color:var(--red);filter:drop-shadow(0 0 4px rgba(255,93,108,.7))}
 
+  /* ============ ГЛАВНАЯ КОНСОЛЬ ============ */
+  .console-hero{
+    margin: 20px 0 0;
+    position:relative;
+    border:2px solid var(--green);
+    border-radius:6px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(94,227,111,.06), transparent 60%), #03040a;
+    box-shadow:
+      0 0 0 1px rgba(94,227,111,.15),
+      0 0 40px -8px rgba(94,227,111,.35),
+      0 0 100px -20px rgba(94,227,111,.25),
+      inset 0 0 80px rgba(94,227,111,.04);
+    overflow:hidden;
+    transition:.4s;
+    animation: consoleGlow 4s ease-in-out infinite;
+  }
+  @keyframes consoleGlow{
+    0%,100%{box-shadow:
+      0 0 0 1px rgba(94,227,111,.15),
+      0 0 40px -8px rgba(94,227,111,.35),
+      0 0 100px -20px rgba(94,227,111,.25),
+      inset 0 0 80px rgba(94,227,111,.04);}
+    50%{box-shadow:
+      0 0 0 1px rgba(94,227,111,.25),
+      0 0 55px -8px rgba(94,227,111,.55),
+      0 0 130px -20px rgba(94,227,111,.4),
+      inset 0 0 100px rgba(94,227,111,.07);}
+  }
+  .console-hero:hover{
+    border-color:var(--cyan);
+    box-shadow:
+      0 0 0 1px rgba(77,216,255,.25),
+      0 0 60px -8px rgba(77,216,255,.55),
+      0 0 140px -20px rgba(77,216,255,.35),
+      inset 0 0 100px rgba(77,216,255,.05);
+  }
+  .console-hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px);
+    opacity:.55;mix-blend-mode:overlay;
+  }
+  .console-hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:4;
+    background:rgba(94,227,111,.03);
+    animation: flicker 4.5s steps(1) infinite;
+  }
+  @keyframes flicker{
+    0%,96%,100%{opacity:0}
+    97%{opacity:1}
+    98%{opacity:.3}
+    99%{opacity:.8}
+  }
+
+  .console-head{
+    display:flex;align-items:center;gap:8px;padding:12px 18px;
+    background:linear-gradient(180deg,rgba(11,13,19,.95),rgba(11,13,19,.75));
+    border-bottom:1px solid rgba(94,227,111,.2);
+    font-size:11px;letter-spacing:1.5px;color:var(--dim);
+    position:relative;z-index:5;
+  }
+  .console-head .d{width:11px;height:11px;border-radius:50%}
+  .d1{background:var(--red)}.d2{background:var(--gold)}.d3{background:var(--green)}
+  .console-head .path{margin-left:10px;color:var(--green)}
+  .console-head .right{margin-left:auto;color:var(--dim);display:flex;gap:16px;align-items:center}
+  .console-head .right .blink{color:var(--green);animation:blink 1.2s steps(1) infinite}
+
+  .console-body{
+    padding:26px 28px;
+    min-height:340px;
+    max-height:480px;
+    overflow-y:auto;
+    line-height:1.85;
+    font-size:14.5px;
+    position:relative;z-index:5;
+    scroll-behavior:smooth;
+  }
+  .console-body::-webkit-scrollbar{width:10px}
+  .console-body::-webkit-scrollbar-track{background:#03040a}
+  .console-body::-webkit-scrollbar-thumb{background:rgba(94,227,111,.35);border-radius:4px}
+  .console-body::-webkit-scrollbar-thumb:hover{background:rgba(94,227,111,.6)}
+
+  .cl{white-space:pre-wrap;word-break:break-word;animation: lineIn .25s ease-out}
+  @keyframes lineIn{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+  .cl .g{color:var(--green)} .cl .c{color:var(--cyan)} .cl .p{color:var(--purple)}
+  .cl .r{color:var(--red)} .cl .y{color:var(--gold)} .cl .d{color:var(--dim)}
+  .cl .b{color:#fff;font-weight:bold}
+
+  .cl .g,.cl .c,.cl .y,.cl .r{text-shadow:0 0 8px currentColor}
+
+  .console-input{
+    display:flex;align-items:center;gap:12px;padding:16px 22px;
+    border-top:1px solid rgba(94,227,111,.2);
+    background:linear-gradient(0deg,rgba(11,13,19,.95),rgba(11,13,19,.7));
+    position:relative;z-index:5;
+  }
+  .console-input .p{color:var(--green);font-size:15px;
+    text-shadow:0 0 10px rgba(94,227,111,.9);animation:blink 1s steps(1) infinite}
+  .console-input input{
+    flex:1;background:transparent;border:none;outline:none;
+    color:var(--green);font-family:'Share Tech Mono',monospace;font-size:15px;
+    caret-color:var(--green);
+    text-shadow:0 0 8px rgba(94,227,111,.7);
+  }
+  .console-input input::placeholder{color:rgba(94,227,111,.35)}
+
+  .console-hero .live-tag{
+    position:absolute;top:10px;right:14px;z-index:6;
+    font-size:10px;letter-spacing:2px;color:var(--red);
+    display:flex;align-items:center;gap:6px;
+  }
+  .console-hero .live-tag::before{
+    content:"";width:7px;height:7px;border-radius:50%;background:var(--red);
+    box-shadow:0 0 10px var(--red);animation:blink 1.2s steps(1) infinite;
+  }
+
+  .hint-keys{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;justify-content:center}
+  .hint-key{
+    font-size:12px;padding:9px 16px;
+    border:1px solid rgba(94,227,111,.35);
+    border-radius:3px;color:var(--green);cursor:none;
+    transition:.22s;background:rgba(94,227,111,.04);
+    letter-spacing:1px;position:relative;overflow:hidden;
+  }
+  .hint-key::before{content:"❯ ";color:rgba(94,227,111,.5);}
+  .hint-key:hover{
+    border-color:var(--green);color:#04140a;background:var(--green);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px -4px rgba(94,227,111,.6);
+  }
+  .hint-key:hover::before{color:#04140a}
+
   .redstone-map{position:relative;padding:20px 0;display:grid;
     grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;}
   .rs-node{position:relative;padding:26px 22px;border:1px solid var(--line);
@@ -192,30 +323,6 @@
   .rs-node .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
   .chip{font-size:10px;letter-spacing:.5px;padding:3px 8px;border-radius:2px;
     background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--dim);}
-
-  .console{background:#050609;border:2px solid var(--line);border-radius:4px;
-    font-size:13.5px;overflow:hidden;}
-  .console-head{display:flex;align-items:center;gap:8px;padding:10px 16px;
-    background:#0b0d13;border-bottom:1px solid var(--line);
-    font-size:11px;letter-spacing:1px;color:var(--dim);}
-  .console-head .d{width:11px;height:11px;border-radius:50%}
-  .d1{background:var(--red)}.d2{background:var(--gold)}.d3{background:var(--green)}
-  .console-body{padding:20px;min-height:230px;max-height:340px;overflow-y:auto;line-height:1.85}
-  .console-body::-webkit-scrollbar{width:8px}
-  .console-body::-webkit-scrollbar-track{background:#0b0d13}
-  .console-body::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
-  .cl{white-space:pre-wrap;word-break:break-word}
-  .cl .g{color:var(--green)} .cl .c{color:var(--cyan)} .cl .p{color:var(--purple)}
-  .cl .r{color:var(--red)} .cl .y{color:var(--gold)} .cl .d{color:var(--dim)}
-  .console-input{display:flex;align-items:center;gap:10px;padding:14px 20px;
-    border-top:1px solid var(--line);background:#0b0d13;}
-  .console-input .p{color:var(--green);font-size:14px}
-  .console-input input{flex:1;background:transparent;border:none;outline:none;
-    color:var(--green);font-family:'Share Tech Mono',monospace;font-size:14px;caret-color:var(--green);}
-  .hint-keys{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-  .hint-key{font-size:11px;padding:5px 11px;border:1px solid var(--line);border-radius:2px;
-    color:var(--dim);cursor:none;transition:.2s;background:rgba(255,255,255,.02);}
-  .hint-key:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
 
   .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .mode{border:2px solid var(--line);border-radius:4px;padding:32px 28px;
@@ -271,6 +378,13 @@
     border-radius:3px;font-size:22px;}
   .achievement .ttl{font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:4px}
   .achievement .txt{font-size:13px;color:var(--txt);line-height:1.4}
+  /* прогресс-полоса у достижения */
+  .achievement .prog{
+    position:absolute;bottom:0;left:0;height:2px;background:var(--gold);
+    box-shadow:0 0 8px var(--gold);width:100%;transform-origin:left;
+  }
+  .achievement.show .prog{animation: achProg 10s linear forwards}
+  @keyframes achProg{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 
   .palette{position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);
     display:none;align-items:flex-start;justify-content:center;padding-top:14vh;
@@ -291,8 +405,8 @@
   footer{text-align:center;padding:40px 0 60px;color:var(--dim);font-size:11.5px;letter-spacing:1px}
 
   @media(max-width:880px){
-    .hero-grid{grid-template-columns:1fr;padding-top:100px;min-height:auto;gap:40px}
-    .skin-stage{min-height:360px}
+    .hero-grid{grid-template-columns:1fr;padding-top:100px;min-height:auto;gap:30px}
+    .skin-stage{min-height:320px}
     .mode-grid{grid-template-columns:1fr}
     .chunk{padding:28px 20px}
     .hud-right{display:none}
@@ -300,12 +414,12 @@
     #pickaxe,#cursorRing{display:none}
     .slot{cursor:pointer}
     .hotbar{transform:translateX(-50%) scale(.88)}
+    .console-body{font-size:13px;padding:20px;min-height:280px}
   }
 </style>
 </head>
 <body>
 
-<!-- КУРСОР -->
 <svg id="pickaxe" viewBox="0 0 32 32">
   <g fill="none" stroke="#5ee36f" stroke-width="2" stroke-linecap="square">
     <path d="M6 26 L14 18" stroke="#8a5a2b" stroke-width="3"/>
@@ -316,22 +430,19 @@
 </svg>
 <div id="cursorRing"></div>
 
-<!-- BOOT -->
 <div id="boot">
   <div id="bootLog"></div>
   <div class="boot-bar"><div class="boot-bar-fill" id="bootFill"></div></div>
   <div class="boot-pct" id="bootPct">Loading chunks... 0%</div>
 </div>
 
-<!-- ФОН -->
 <div class="sky"></div>
 <div class="voxel-ground"></div>
 <div class="scanlines"></div>
 <div class="vignette"></div>
 
-<!-- HUD -->
 <div class="hud">
-  <div class="hud-logo" id="logo">◆ CHUNK_LOADER</div>
+  <div class="hud-logo" id="logo">◆ VILLONI</div>
   <div class="hud-right">
     <span class="hud-ping" id="ping">ping 12ms</span>
     <span class="hud-fps" id="fps">60 fps</span>
@@ -340,33 +451,30 @@
   </div>
 </div>
 
-<!-- ХОТБАР -->
 <div class="hotbar">
   <div class="slot" data-target="hero">🏠<span class="lbl">СТАРТ</span><span class="key">1</span></div>
-  <div class="slot" data-target="skills">⛏<span class="lbl">НАВЫКИ</span><span class="key">2</span></div>
-  <div class="slot" data-target="console">💻<span class="lbl">КОНСОЛЬ</span><span class="key">3</span></div>
+  <div class="slot" data-target="consoleSection">💻<span class="lbl">КОНСОЛЬ</span><span class="key">2</span></div>
+  <div class="slot" data-target="skills">⛏<span class="lbl">НАВЫКИ</span><span class="key">3</span></div>
   <div class="slot" data-target="modes">📦<span class="lbl">ФОРМАТЫ</span><span class="key">4</span></div>
   <div class="slot" data-target="contact">✉<span class="lbl">КОНТАКТ</span><span class="key">5</span></div>
   <div class="slot" id="slotCmd">⌘<span class="lbl">Ctrl+K</span><span class="key">⌘K</span></div>
 </div>
 
-<!-- XP BAR -->
 <div class="xp-bar">
   <span>XP</span>
   <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
   <span class="xp-lvl" id="xpLvl">0</span>
 </div>
 
-<!-- ACHIEVEMENT -->
 <div class="achievement" id="ach">
   <div class="ico" id="achIco">🏆</div>
   <div>
     <div class="ttl">ДОСТИЖЕНИЕ ПОЛУЧЕНО!</div>
     <div class="txt" id="achTxt">—</div>
   </div>
+  <div class="prog"></div>
 </div>
 
-<!-- PALETTE -->
 <div class="palette" id="palette">
   <div class="palette-box">
     <input type="text" id="paletteInput" placeholder="> введите команду..." autocomplete="off">
@@ -374,7 +482,6 @@
   </div>
 </div>
 
-<!-- МИР -->
 <div id="world">
 <main>
 
@@ -382,20 +489,19 @@
   <section class="hero-grid" id="hero">
     <div>
       <div class="type-line"><span id="typed"></span><span class="cur"></span></div>
-      <h1><span class="glitch" data-t="FULL-CYCLE">FULL-CYCLE</span><br>MC TECH DEV</h1>
+      <h1><span class="glitch" data-t="VILLONI">VILLONI</span><br>MC TECH DEV</h1>
       <p class="hero-sub">
         Соберу сервер <b>под ключ</b>, напишу плагин, настрою инфраструктуру.
         Работаю как разово по задаче, так и на постоянке с проектом —
-        <b>веду техническую часть</b> целиком. <span class="xp">[12 лет опыта →]</span>
+        <b>веду техническую часть</b> целиком.
       </p>
       <div class="btn-row" style="justify-content:flex-start">
-        <a href="#contact" class="mc-btn"><span>💬 НАЧАТЬ ПРОЕКТ</span></a>
-        <a href="#skills" class="mc-btn alt"><span>⛏ СМОТРЕТЬ НАВЫКИ</span></a>
+        <a href="#consoleSection" class="mc-btn"><span>💬 ОТКРЫТЬ КОНСОЛЬ</span></a>
       </div>
     </div>
 
     <div class="skin-stage">
-      <div class="nameplate">◆ YOUR_NICK</div>
+      <div class="nameplate">◆ VILLONI</div>
       <div class="health-bar">
         <span class="hp">❤❤❤❤❤</span>
       </div>
@@ -411,8 +517,41 @@
     </div>
   </section>
 
+  <!-- ============ ГЛАВНАЯ КОНСОЛЬ ============ -->
+  <section id="consoleSection" style="margin: 40px 0 0; position:relative;">
+    <div class="console-hero" id="consoleHero">
+      <div class="live-tag">LIVE</div>
+      <div class="console-head">
+        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+        <span class="path">villoni@chunk-loader: ~/main</span>
+        <div class="right">
+          <span id="consoleClock">--:--:--</span>
+          <span class="blink">▪</span>
+        </div>
+      </div>
+      <div class="console-body" id="consoleBody"></div>
+      <div class="console-input">
+        <span class="p">❯</span>
+        <input type="text" id="consoleInput" placeholder="введи команду... (help — список)" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="hint-keys">
+      <span class="hint-key" data-cmd="help">help</span>
+      <span class="hint-key" data-cmd="about">about</span>
+      <span class="hint-key" data-cmd="skills">skills</span>
+      <span class="hint-key" data-cmd="services">services</span>
+      <span class="hint-key" data-cmd="contact">contact</span>
+      <span class="hint-key" data-cmd="experience">experience</span>
+      <span class="hint-key" data-cmd="whoami">whoami</span>
+      <span class="hint-key" data-cmd="sudo">sudo</span>
+      <span class="hint-key" data-cmd="matrix">matrix</span>
+      <span class="hint-key" data-cmd="clear">clear</span>
+    </div>
+  </section>
+
   <!-- НАВЫКИ -->
-  <section class="chunk reveal" id="skills" data-chunk="[ CHUNK 01 · SKILLS ]">
+  <section class="chunk reveal" id="skills" data-chunk="[ CHUNK 02 · SKILLS ]">
     <h2>Редстоун-схема <span class="hl">навыков</span></h2>
     <div class="sec-note">наведи на узел — увидишь, что внутри</div>
     <div class="redstone-map">
@@ -449,32 +588,6 @@
     </div>
   </section>
 
-  <!-- КОНСОЛЬ -->
-  <section class="chunk reveal" id="console" data-chunk="[ CHUNK 02 · TERMINAL ]">
-    <h2>Живая <span class="hl">консоль</span></h2>
-    <div class="sec-note">напиши <b style="color:var(--green)">help</b> и нажми Enter — там всё есть</div>
-    <div class="console">
-      <div class="console-head">
-        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
-        <span style="margin-left:10px">mc-dev@chunk-loader: ~</span>
-      </div>
-      <div class="console-body" id="consoleBody"></div>
-      <div class="console-input">
-        <span class="p">❯</span>
-        <input type="text" id="consoleInput" placeholder="введи команду..." autocomplete="off">
-      </div>
-    </div>
-    <div class="hint-keys">
-      <span class="hint-key" data-cmd="help">help</span>
-      <span class="hint-key" data-cmd="about">about</span>
-      <span class="hint-key" data-cmd="skills">skills</span>
-      <span class="hint-key" data-cmd="contact">contact</span>
-      <span class="hint-key" data-cmd="whoami">whoami</span>
-      <span class="hint-key" data-cmd="clear">clear</span>
-      <span class="hint-key" data-cmd="sudo">sudo</span>
-    </div>
-  </section>
-
   <!-- ФОРМАТЫ -->
   <section class="chunk reveal" id="modes" data-chunk="[ CHUNK 03 · MODES ]">
     <h2>Форматы <span class="hl">сотрудничества</span></h2>
@@ -501,17 +614,16 @@
       <h2>Есть задача или <span class="hl">проект</span>?</h2>
       <p>Напиши — обсудим детали, сроки и формат. Отвечаю быстро, берусь за интересное.</p>
       <div class="btn-row">
-        <a href="#" class="mc-btn" data-link="tg"><span>✈ TELEGRAM</span></a>
-        <a href="#" class="mc-btn alt" data-link="gh"><span>💻 GITHUB</span></a>
+        <a href="https://t.me/VilloniQ" target="_blank" rel="noopener" class="mc-btn"><span>✈ TELEGRAM</span></a>
+        <a href="https://github.com/LIONVILL/" target="_blank" rel="noopener" class="mc-btn alt"><span>💻 GITHUB</span></a>
         <a href="#" class="mc-btn" data-link="ds"><span>🎮 DISCORD</span></a>
+      </div>
+      <div style="margin-top:22px;font-size:12px;color:var(--dim);letter-spacing:1px">
+        TG: <span style="color:var(--cyan)">@VilloniQ</span> · <span style="color:var(--cyan)">@LIONVILL01</span> (запасной) · DS: <span style="color:var(--cyan)">VilloniQ</span>
       </div>
     </div>
   </section>
 
-  <footer>
-    © <span id="year"></span> · MINECRAFT-РАЗРАБОТЧИК / ТЕХСПЕЦ ПОЛНОГО ЦИКЛА<br>
-    <span style="opacity:.5">набери konami или кликни 3 раза по логотипу ↑</span>
-  </footer>
 
 </main>
 </div>
@@ -530,7 +642,7 @@
     '[OK]   proxy layer online <span class="ok">velocity</span>',
     '[OK]   anti-ddos shield <span class="ok">active</span>',
     '[OK]   redstone circuits calibrated',
-    '[OK]   loading player data...',
+    '[OK]   loading operator: <span class="ok">Villoni</span>',
     '[DONE] welcome, operator.'
   ];
   var bootLog = document.getElementById('bootLog');
@@ -538,8 +650,9 @@
   var bootPct = document.getElementById('bootPct');
   var boot = document.getElementById('boot');
   var world = document.getElementById('world');
-
   var li = 0;
+  var bootDone = false;
+
   function nextBootLine(){
     if(li < bootLines.length){
       var d = document.createElement('div');
@@ -555,28 +668,24 @@
       setTimeout(function(){
         boot.classList.add('done');
         world.classList.add('on');
+        bootDone = true;
         startTyping();
         startFps();
-        bootDone = true;
+        startClock();
+        setTimeout(runAutoDemo, 900);
       }, 450);
     }
   }
-
-  // запуск после загрузки шрифтов/страницы
-  window.addEventListener('load', function(){
-    setTimeout(nextBootLine, 250);
-  });
-  // страховка: если load не сработает за 2 сек — стартуем
-  var bootDone = false;
+  window.addEventListener('load', function(){ setTimeout(nextBootLine, 250); });
   setTimeout(function(){ if(!bootDone && li === 0) nextBootLine(); }, 2000);
 
-  /* ============ 2. ТАЙПИНГ В HERO ============ */
+  /* ============ 2. ТАЙПИНГ ============ */
   var typedEl = document.getElementById('typed');
   var phrases = [
-    '> инициализация... оператор на связи',
+    '> инициализация... оператор Villoni на связи',
     '> сборка серверов под ключ',
     '> плагины · Python · Linux · Web',
-    '> открыт к долгосрочному сотрудничеству'
+    '> консоль внизу — попробуй ↓'
   ];
   var pi = 0, ci = 0, deleting = false;
   function startTyping(){
@@ -629,6 +738,19 @@
     }, 900);
   }
 
+  /* ============ 4b. ЧАСЫ В КОНСОЛИ ============ */
+  function startClock(){
+    var el = document.getElementById('consoleClock');
+    if(!el) return;
+    function tick(){
+      var d = new Date();
+      el.textContent = String(d.getHours()).padStart(2,'0')+':'+
+                       String(d.getMinutes()).padStart(2,'0')+':'+
+                       String(d.getSeconds()).padStart(2,'0');
+    }
+    tick(); setInterval(tick, 1000);
+  }
+
   /* ============ 5. REVEAL ============ */
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(en, i){
@@ -663,61 +785,108 @@
       var y = (e.clientY - r.top)/r.height - .5;
       skinBase.style.transform = 'rotateY(' + (x*22) + 'deg) rotateX(' + (-y*14) + 'deg)';
     });
-    stage.addEventListener('mouseleave', function(){
-      skinBase.style.transform = '';
-    });
+    stage.addEventListener('mouseleave', function(){ skinBase.style.transform = ''; });
   }
 
   /* ============ 8. КОНСОЛЬ ============ */
   var consoleBody = document.getElementById('consoleBody');
   var consoleInput = document.getElementById('consoleInput');
+  var consoleHero = document.getElementById('consoleHero');
+
+  var BANNER = [
+    '<span class="g"> ██╗   ██╗██╗██╗     ██╗      ██████╗ ███╗   ██╗██╗</span>',
+    '<span class="g"> ██║   ██║██║██║     ██║     ██╔═══██╗████╗  ██║██║</span>',
+    '<span class="g"> ██║   ██║██║██║     ██║     ██║   ██║██╔██╗ ██║██║</span>',
+    '<span class="g"> ╚██╗ ██╔╝██║██║     ██║     ██║   ██║██║╚██╗██║██║</span>',
+    '<span class="g">  ╚████╔╝ ██║███████╗███████╗╚██████╔╝██║ ╚████║██║</span>',
+    '<span class="g">   ╚═══╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝</span>',
+    '',
+    '<span class="c">  ▸ MC TECH DEV TERMINAL v1.0.4</span>',
+    '<span class="d">  ▸ type <span class="g">help</span> to list commands · <span class="g">Tab</span> to autocomplete</span>',
+    ''
+  ].join('\n');
 
   var COMMANDS = {
     help: function(){
       return [
-        '<span class="c">Доступные команды:</span>',
-        '  <span class="g">about</span>      — кто я и чем занимаюсь',
-        '  <span class="g">skills</span>     — список навыков',
-        '  <span class="g">contact</span>    — как связаться',
-        '  <span class="g">whoami</span>     — кто ты :)',
-        '  <span class="g">clear</span>      — очистить консоль',
-        '  <span class="g">sudo</span>       — а вдруг?',
-        '  <span class="g">matrix</span>     — пасхалка'
+        '<span class="c">╭─ ДОСТУПНЫЕ КОМАНДЫ ─────────────────────────╮</span>',
+        '<span class="c">│</span>  <span class="g">about</span>       кто я и чем занимаюсь',
+        '<span class="c">│</span>  <span class="g">experience</span>  опыт работы',
+        '<span class="c">│</span>  <span class="g">skills</span>      список навыков с прогрессом',
+        '<span class="c">│</span>  <span class="g">services</span>    что я делаю для проектов',
+        '<span class="c">│</span>  <span class="g">contact</span>     как связаться',
+        '<span class="c">│</span>  <span class="g">whoami</span>      кто ты :)',
+        '<span class="c">│</span>  <span class="g">date</span>        текущая дата',
+        '<span class="c">│</span>  <span class="g">clear</span>       очистить консоль',
+        '<span class="c">│</span>  <span class="g">sudo</span>        а вдруг?',
+        '<span class="c">│</span>  <span class="g">matrix</span>      пасхалка',
+        '<span class="c">╰─────────────────────────────────────────────╯</span>'
       ].join('\n');
     },
     about: function(){
       return [
-        '<span class="p">Minecraft-разработчик / техспец полного цикла.</span>',
-        'Собираю сервера под ключ, пишу плагины, настраиваю инфраструктуру.',
-        'Работаю разово и на долгосрок — веду техническую часть проекта.'
+        '<span class="p">┌─── ABOUT ───────────────────────────────┐</span>',
+        '<span class="p">│</span> <span class="b">Villoni — Minecraft-разработчик / техспец полного цикла</span>',
+        '<span class="p">│</span>',
+        '<span class="p">│</span> Собираю сервера под ключ, пишу плагины,',
+        '<span class="p">│</span> настраиваю инфраструктуру. Работаю разово',
+        '<span class="p">│</span> и на долгосрок — веду техническую часть проекта.',
+        '<span class="p">└─────────────────────────────────────────┘</span>'
+      ].join('\n');
+    },
+    experience: function(){
+      return [
+        '<span class="y">┌─── ОПЫТ ────────────────────────────────┐</span>',
+        '<span class="y">│</span> <span class="b">Разработка серверов</span>     <span class="g">4 года</span>',
+        '<span class="y">│</span> <span class="b">Java / Python</span>           <span class="g">1 год</span>',
+        '<span class="y">│</span>',
+        '<span class="y">│</span> <span class="d">От сборки ядра и конфигов до</span>',
+        '<span class="y">│</span> <span class="d">написания плагинов и полной инфраструктуры.</span>',
+        '<span class="y">└─────────────────────────────────────────┘</span>'
       ].join('\n');
     },
     skills: function(){
       return [
-        '<span class="y">[1]</span> Сборщик серверов     <span class="g">████████░░</span> 90%',
-        '<span class="y">[2]</span> Плагины (Java 1.12+)  <span class="g">████████░░</span> 85%',
-        '<span class="y">[3]</span> Python-боты / скрипты <span class="g">████████░░</span> 88%',
-        '<span class="y">[4]</span> Вёрстка HTML/CSS/JS  <span class="g">███████░░░</span> 75%',
-        '<span class="y">[5]</span> Linux / DevOps       <span class="g">████████░░</span> 82%'
+        '<span class="y">  #   НАВЫК                    УРОВЕНЬ</span>',
+        '  <span class="g">1</span>   Сборщик серверов      <span class="g">█████████░</span> <span class="b">90%</span>',
+        '  <span class="g">2</span>   Плагины (Java 1.12+)  <span class="g">████████░░</span> <span class="b">85%</span>',
+        '  <span class="g">3</span>   Python / боты         <span class="g">████████░░</span> <span class="b">88%</span>',
+        '  <span class="g">4</span>   Вёрстка HTML/CSS/JS   <span class="g">███████░░░</span> <span class="b">75%</span>',
+        '  <span class="g">5</span>   Linux / DevOps        <span class="g">████████░░</span> <span class="b">82%</span>'
+      ].join('\n');
+    },
+    services: function(){
+      return [
+        '<span class="c">▸ Что я делаю:</span>',
+        '  <span class="g">•</span> <span class="b">Сборка серверов</span> — ядро, плагины, конфиги, права, экономика, прокси, anti-DDoS',
+        '  <span class="g">•</span> <span class="b">Плагины 1.12+</span> — механики, интеграции, средняя сложность',
+        '  <span class="g">•</span> <span class="b">Python-боты</span> — скрипты, автобэкапы, платёжки',
+        '  <span class="g">•</span> <span class="b">Вёрстка</span> — HTML/CSS/JS, XenForo, связка с сервером',
+        '  <span class="g">•</span> <span class="b">Linux</span> — веб, игровые серверы, боты TG/VK/Discord'
       ].join('\n');
     },
     contact: function(){
       return [
-        'Telegram  <span class="c">@your_nick</span>',
-        'GitHub    <span class="c">github.com/your_nick</span>',
-        'Discord   <span class="c">your_nick</span>',
-        '<span class="d">// замени на свои реальные контакты в index.html</span>'
+        '<span class="y">┌─── КОНТАКТЫ ────────────────────────────┐</span>',
+        '<span class="y">│</span> Telegram  <span class="c">@VilloniQ</span>  <span class="d">(основной)</span>',
+        '<span class="y">│</span> Telegram  <span class="c">@LIONVILL01</span>  <span class="d">(запасной)</span>',
+        '<span class="y">│</span> Discord   <span class="c">VilloniQ</span>',
+        '<span class="y">│</span> GitHub    <span class="c">github.com/LIONVILL</span>',
+        '<span class="y">└─────────────────────────────────────────┘</span>'
       ].join('\n');
     },
     whoami: function(){
       return '<span class="g">guest@chunk-loader</span> — посетитель с большими планами ✨';
+    },
+    date: function(){
+      return '<span class="g">' + new Date().toString() + '</span>';
     },
     clear: function(){
       consoleBody.innerHTML = '';
       return null;
     },
     sudo: function(){
-      return '<span class="r">nice try 😏 но root тут только у меня.</span>';
+      return '<span class="r">nice try 😏 но root тут только у Villoni.</span>';
     },
     matrix: function(){
       document.body.classList.add('matrix');
@@ -734,12 +903,12 @@
     consoleBody.scrollTop = consoleBody.scrollHeight;
   }
 
-  cl('<span class="d">// консоль активна. Введи <span class="g">help</span> чтобы увидеть команды.</span>');
-
-  function runCommand(raw){
+  function runCommand(raw, silent){
     var cmd = (raw || '').trim().toLowerCase();
     if(!cmd) return;
-    cl('<span class="g">❯</span> <span class="c">' + raw.replace(/</g,'&lt;') + '</span>');
+    if(!silent){
+      cl('<span class="g">❯</span> <span class="c">' + raw.replace(/</g,'&lt;') + '</span>');
+    }
     if(COMMANDS[cmd]){
       var res = COMMANDS[cmd]();
       if(res) cl(res);
@@ -748,15 +917,63 @@
     }
   }
 
+  function runAutoDemo(){
+    cl(BANNER);
+    var demo = ['whoami', 'about', 'experience', 'skills'];
+    var i = 0;
+    function next(){
+      if(i >= demo.length){
+        cl('<span class="d">// ▶ теперь твоя очередь. введи <span class="g">help</span></span>');
+        return;
+      }
+      var cmd = demo[i];
+      var j = 0;
+      var typeTimer = setInterval(function(){
+        consoleInput.value = cmd.slice(0, j);
+        j++;
+        if(j > cmd.length){
+          clearInterval(typeTimer);
+          setTimeout(function(){
+            consoleInput.value = '';
+            runCommand(cmd);
+            i++;
+            setTimeout(next, 700);
+          }, 350);
+        }
+      }, 60);
+    }
+    next();
+  }
+
   consoleInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter'){
       runCommand(consoleInput.value);
       consoleInput.value = '';
     }
+    if(e.key === 'Tab'){
+      e.preventDefault();
+      var v = consoleInput.value.trim().toLowerCase();
+      if(!v) return;
+      var matches = Object.keys(COMMANDS).filter(function(k){ return k.indexOf(v) === 0; });
+      if(matches.length === 1){
+        consoleInput.value = matches[0];
+      } else if(matches.length > 1){
+        cl('<span class="d">' + matches.join('   ') + '</span>');
+      }
+    }
   });
 
+  if(consoleHero){
+    consoleHero.addEventListener('click', function(e){
+      if(e.target.tagName !== 'INPUT' && !e.target.closest('.hint-key')){
+        consoleInput.focus();
+      }
+    });
+  }
+
   document.querySelectorAll('.hint-key').forEach(function(k){
-    k.addEventListener('click', function(){
+    k.addEventListener('click', function(e){
+      e.stopPropagation();
       var c = k.dataset.cmd;
       if(c === 'clear'){ consoleBody.innerHTML=''; return; }
       runCommand(c);
@@ -771,24 +988,27 @@
     });
   });
   document.addEventListener('keydown', function(e){
-    var map = { '1':'hero','2':'skills','3':'console','4':'modes','5':'contact' };
+    var map = { '1':'hero','2':'consoleSection','3':'skills','4':'modes','5':'contact' };
     if(map[e.key] && !/input|textarea/i.test(document.activeElement.tagName)){
       var el = document.getElementById(map[e.key]);
       if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
     }
   });
 
-  /* ============ 10. КОМАНДНАЯ ПАЛИТРА (Ctrl+K) ============ */
+  /* ============ 10. КОМАНДНАЯ ПАЛИТРА ============ */
   var palette = document.getElementById('palette');
   var paletteInput = document.getElementById('paletteInput');
   var paletteList = document.getElementById('paletteList');
   var paletteItems = [
-    { t:'→ На старт',       a:function(){ go('hero'); } },
-    { t:'→ Навыки',         a:function(){ go('skills'); } },
-    { t:'→ Консоль',        a:function(){ go('console'); } },
-    { t:'→ Форматы работы', a:function(){ go('modes'); } },
-    { t:'→ Контакты',       a:function(){ go('contact'); } },
-    { t:'⚡ Пасхалка',      a:function(){ runCommand('matrix'); go('console'); } }
+    { t:'→ На старт',           a:function(){ go('hero'); } },
+    { t:'→ Открыть консоль',    a:function(){ go('consoleSection'); setTimeout(function(){ consoleInput.focus(); }, 700); } },
+    { t:'→ Навыки',             a:function(){ go('skills'); } },
+    { t:'→ Форматы работы',     a:function(){ go('modes'); } },
+    { t:'→ Контакты',           a:function(){ go('contact'); } },
+    { t:'⚡ Команда: experience', a:function(){ go('consoleSection'); setTimeout(function(){ runCommand('experience'); }, 700); } },
+    { t:'⚡ Команда: skills',   a:function(){ go('consoleSection'); setTimeout(function(){ runCommand('skills'); }, 700); } },
+    { t:'⚡ Команда: services', a:function(){ go('consoleSection'); setTimeout(function(){ runCommand('services'); }, 700); } },
+    { t:'👾 Пасхалка (matrix)', a:function(){ runCommand('matrix'); go('consoleSection'); } }
   ];
   function go(id){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
 
@@ -833,13 +1053,16 @@
   function unlockAchievement(txt, ico){
     achTxt.textContent = txt;
     achIco.textContent = ico || '🏆';
-    ach.classList.add('show');
+    ach.classList.remove('show');
+    // перезапуск анимации прогресс-полосы
+    var prog = ach.querySelector('.prog');
+    if(prog){ prog.style.animation = 'none'; void prog.offsetWidth; prog.style.animation = ''; }
+    setTimeout(function(){ ach.classList.add('show'); }, 20);
     clearTimeout(achTimer);
-    achTimer = setTimeout(function(){ ach.classList.remove('show'); }, 3800);
+    achTimer = setTimeout(function(){ ach.classList.remove('show'); }, 10000);
   }
 
   /* ============ 12. ПАСХАЛКИ ============ */
-  // клик по логотипу 3 раза
   var logoClicks = 0, logoTimer;
   document.getElementById('logo').addEventListener('click', function(){
     logoClicks++;
@@ -851,7 +1074,6 @@
     }
   });
 
-  // konami code
   var konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   var kpos = 0;
   document.addEventListener('keydown', function(e){
@@ -867,29 +1089,23 @@
     }
   });
 
-  // первое достижение через 6 сек
   setTimeout(function(){
-    unlockAchievement('Добро пожаловать в мир. Осмотрись!', '🌍');
+    unlockAchievement('Добро пожаловать. Консоль внизу — главное.', '🌍');
   }, 6000);
 
-  /* ============ 13. ССЫЛКИ В CTA ============ */
-  var links = {
-    tg: function(){ unlockAchievement('Замени ссылку в data-link="tg"', '✈'); },
-    gh: function(){ unlockAchievement('Замени ссылку в data-link="gh"', '💻'); },
-    ds: function(){ unlockAchievement('Замени ссылку в data-link="ds"', '🎮'); }
-  };
+  /* ============ 13. ССЫЛКИ ============ */
   document.querySelectorAll('[data-link]').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
-      var fn = links[a.dataset.link];
-      if(fn) fn();
+      var type = a.dataset.link;
+      if(type === 'ds') unlockAchievement('Discord: VilloniQ — скопируй себе', '🎮');
     });
   });
 
   /* ============ 14. ГОД ============ */
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* ============ 15. МАТРИЦА (пасхалка) ============ */
+  /* ============ 15. МАТРИЦА ============ */
   var style = document.createElement('style');
   style.textContent = `
     body.matrix{animation:matrixHue 2.6s linear}
